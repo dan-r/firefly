@@ -392,8 +392,10 @@ func (wh *WebHooks) attemptRequest(ctx context.Context, sub *core.Subscription, 
 	}
 
 	resp, err := req.r.Execute(req.method, req.url)
+	// Use the request context for response logs so the breq correlator injected by ffresty is included
+	reqCtx := req.r.Context()
 	if err != nil {
-		log.L(ctx).Errorf("Webhook<- %s %s failed: %s", req.method, req.url, err)
+		log.L(reqCtx).Errorf("Webhook<- %s %s failed: %s", req.method, req.url, err)
 		return nil, nil, err
 	}
 	defer func() { _ = resp.RawBody().Close() }()
@@ -402,7 +404,7 @@ func (wh *WebHooks) attemptRequest(ctx context.Context, sub *core.Subscription, 
 		Status:  resp.StatusCode(),
 		Headers: fftypes.JSONObject{},
 	}
-	log.L(ctx).Debugf("Webhook<- %s %s returned %d", req.method, req.url, res.Status)
+	log.L(reqCtx).Debugf("Webhook<- %s %s returned %d", req.method, req.url, res.Status)
 	header := resp.Header()
 	for h := range header {
 		res.Headers[h] = header.Get(h)
