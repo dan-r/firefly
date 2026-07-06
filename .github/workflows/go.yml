@@ -60,7 +60,7 @@ jobs:
         run: make docker
 
       - name: Save Docker image
-        run: docker save --output firefly.tar.gz hyperledger/firefly
+        run: docker save --output firefly.tar.gz hyperledger-firefly/firefly
 
       - name: Upload Docker image
         uses: actions/upload-artifact@v4
