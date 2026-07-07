@@ -41,8 +41,8 @@
   },
   "tokens-erc20-erc721": {
     "image": "ghcr.io/hyperledger-firefly/tokens-erc20-erc721",
-    "tag": "v1.3.6",
-    "sha": "29daced3498a24191aa354fd204860492a4089335fb99cfb258bba685446ea1f"
+    "tag": "v1.3.7",
+    "sha": "732ae187e8281657bbee6c2c9f968a256cf1ae1187ee7cb1fc1559c9925e1667"
   },
   "signer": {
     "image": "ghcr.io/hyperledger-firefly/signer",
