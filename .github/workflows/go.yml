@@ -60,7 +60,7 @@ jobs:
         run: make docker
 
       - name: Save Docker image
-        run: docker save --output firefly.tar.gz hyperledger/firefly
+        run: docker save --output firefly.tar.gz hyperledger-firefly/firefly
 
       - name: Upload Docker image
         uses: actions/upload-artifact@v4
@@ -155,6 +155,10 @@ jobs:
 
       - name: Load Docker image
         run: docker load --input firefly.tar.gz
+
+      # Temporary to pass e2e jobs during migration
+      - name: Re-tag Docker image
+        run: docker tag hyperledger-firefly/firefly hyperledger/firefly
 
       # Pre-pull fabric-ccenv so the Fabric peer's chaincode build finds it. Required on
       # GitHub Actions with Docker 29: the peer invokes the host Docker build API to build
