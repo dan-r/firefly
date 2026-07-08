@@ -23,7 +23,6 @@ import (
 	"os"
 	"os/exec"
 	"testing"
-	"time"
 
 	"github.com/aidarkhanov/nanoid"
 	"github.com/go-resty/resty/v2"
@@ -233,17 +232,7 @@ func (suite *EthereumContractTestSuite) TestFFIInvokeMethod() {
 	assert.NotNil(suite.T(), res)
 
 	// Wait for the operation to succeed before idempotency check
-	// If the operation never succeeds, the larger test timeout will fail
-	for {
-		suite.T().Logf("Waiting for invoke operation to succeed: %s", res.ID.String())
-		op := suite.testState.client1.GetOperation(suite.T(), res.ID.String())
-		if op.Status == core.OpStatusSucceeded {
-			suite.T().Logf("Invoke operation succeeded: %s", res.ID.String())
-			break
-		}
-		time.Sleep(100 * time.Millisecond)
-		suite.T().Logf("Retrying, invoke operation status: %s", op.Status)
-	}
+	e2e.WaitForOperationSucceeded(suite.T(), suite.testState.client1, res.ID)
 
 	// Idempotency check
 	_, err = suite.testState.client1.InvokeContractMethod(suite.T(), invokeContractRequest, 409)

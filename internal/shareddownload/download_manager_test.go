@@ -296,7 +296,6 @@ func TestDownloadManagerStartupRecoveryCombinations(t *testing.T) {
 		assert.Equal(t, core.OpPhaseComplete, phase)
 		called <- true
 	})
-	//mom.On("SubmitOperationUpdate", mock.Anything).Return(nil)
 	updateCalled := make(chan bool)
 	mom.On("SubmitOperationUpdate", mock.Anything).Return(nil).Run(func(args mock.Arguments) {
 		updateCalled <- true
