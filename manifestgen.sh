@@ -87,7 +87,7 @@ do
     # Get the SHA of the downloaded image
     SHA=$(docker inspect --format='{{index .RepoDigests 0}}' ghcr.io/hyperledger-firefly/${SERVICES[$i]}:$TAG | cut -d ':' -f 2)
     # Get the tag / build number name of this image from its label
-    TAG_LABEL=$(docker inspect --format='{{index .Config.Labels "tag"}}' ghcr.io/hyperledger/firefly-${SERVICES[$i]}:$TAG)
+    TAG_LABEL=$(docker inspect --format='{{index .Config.Labels "tag"}}' ghcr.io/hyperledger-firefly/${SERVICES[$i]}:$TAG)
 
     # If the tag / build number wasn't set in the label, use whatever docker tag we fetched
     # This is done for backwards compatability, because not all images have labels yet

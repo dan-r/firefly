@@ -156,10 +156,6 @@ jobs:
       - name: Load Docker image
         run: docker load --input firefly.tar.gz
 
-      # Temporary to pass e2e jobs during migration
-      - name: Re-tag Docker image
-        run: docker tag hyperledger-firefly/firefly hyperledger/firefly
-
       # Pre-pull fabric-ccenv so the Fabric peer's chaincode build finds it. Required on
       # GitHub Actions with Docker 29: the peer invokes the host Docker build API to build
       # chaincode (FROM hyperledger/fabric-ccenv:2.5); with Docker 29/containerd image store
