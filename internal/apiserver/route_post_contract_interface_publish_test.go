@@ -53,10 +53,10 @@ func TestPostContractInterfacePublishWithTopics(t *testing.T) {
 	o.On("Authorize", mock.Anything, mock.Anything).Return(nil)
 	mds := &definitionsmocks.Sender{}
 	o.On("DefinitionSender").Return(mds)
-	input := core.TokenPool{}
+	input := core.DefinitionPublish{Topics: fftypes.FFStringArray{"my-topic"}}
 	var buf bytes.Buffer
 	json.NewEncoder(&buf).Encode(&input)
-	req := httptest.NewRequest("POST", "/api/v1/namespaces/ns1/contracts/interfaces/ffi1/1.0/publish?topics=my-topic", &buf)
+	req := httptest.NewRequest("POST", "/api/v1/namespaces/ns1/contracts/interfaces/ffi1/1.0/publish", &buf)
 	req.Header.Set("Content-Type", "application/json; charset=utf-8")
 	res := httptest.NewRecorder()
 	ffi := &fftypes.FFI{}

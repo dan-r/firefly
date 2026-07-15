@@ -216,6 +216,4 @@ var (
 
 	APISubscriptionStartSequenceID = ffm("api.startsequenceid", "The sequence ID in the raw event stream to start indexing through events from. Leave blank to start indexing from the most recent events")
 	APISubscriptionEndSequenceID   = ffm("api.endsequenceid", "The sequence ID in the raw event stream to stop indexing through events at. Leave blank to start indexing from the most recent events")
-
-	APICustomTopicsParam = ffm("api.customTopicsParam", "Custom topics to use for ordering of the definition broadcast message, instead of the default system topic. Each topic must be a non-empty string. Only used when the definition is published to the multiparty network")
 )

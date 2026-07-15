@@ -22,6 +22,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/hyperledger-firefly/common/pkg/fftypes"
 	"github.com/hyperledger-firefly/firefly/mocks/contractmocks"
 	"github.com/hyperledger-firefly/firefly/mocks/definitionsmocks"
 	"github.com/hyperledger-firefly/firefly/pkg/core"
@@ -73,10 +74,10 @@ func TestPutContractAPIWithTopics(t *testing.T) {
 	mds := &definitionsmocks.Sender{}
 	o.On("DefinitionSender").Return(mds)
 	o.On("Contracts").Return(&contractmocks.Manager{})
-	input := core.Datatype{}
+	input := core.ContractAPIInput{Topics: fftypes.FFStringArray{"my-topic"}}
 	var buf bytes.Buffer
 	json.NewEncoder(&buf).Encode(&input)
-	req := httptest.NewRequest("PUT", "/api/v1/namespaces/ns1/apis/99EEE458-037C-4C78-B66B-31E52F93D2E9?topics=my-topic", &buf)
+	req := httptest.NewRequest("PUT", "/api/v1/namespaces/ns1/apis/99EEE458-037C-4C78-B66B-31E52F93D2E9", &buf)
 	req.Header.Set("Content-Type", "application/json; charset=utf-8")
 	res := httptest.NewRecorder()
 
