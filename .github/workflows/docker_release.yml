@@ -108,13 +108,6 @@ jobs:
             BUILD_VERSION=${{ steps.build_tag_generator.outputs.RELEASE_TAG }}
             GIT_REF=${{ github.ref }}
 
-      - name: Ensure manifest.json exists
-        run: |
-          if [ ! -f manifest.json ]; then
-            echo "manifest.json not found in repo root - generating via manifestgen.sh"
-            ./manifestgen.sh || true
-          fi
-
       - name: Upload manifest.json to GitHub Release
         if: github.event_name == 'release'
         uses: actions/upload-release-asset@v1
